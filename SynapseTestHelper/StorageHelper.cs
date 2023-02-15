@@ -8,7 +8,7 @@ using Azure.Storage.Blobs;
 
 public class StorageHelper
 {
-    private const string testFilesFolder = "TestFiles\\";
+    private const string testFilesFolder = "TestFiles";
     private BlobServiceClient blobServiceClient;
 
     public StorageHelper(string storageUrl)
@@ -21,7 +21,7 @@ public class StorageHelper
     {
         var containerClient = blobServiceClient.GetBlobContainerClient(container);
 
-        using var fileStream = new FileStream(testFilesFolder + testFile, FileMode.Open);
+        using var fileStream = new FileStream(Path.Combine(testFilesFolder, testFile), FileMode.Open);
 
         await DeleteBlobIfExistsAsync(container, folder, testFile);
         await containerClient.UploadBlobAsync(Path.Combine(folder, testFile), fileStream);
