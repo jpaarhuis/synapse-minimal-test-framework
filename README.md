@@ -17,8 +17,12 @@ The Azure.Identity library is being used for authentication using Managed Identi
 
 ## CI - GitHub
 
-Authentication used to make GitHub Actions connect to Azure is with federated credentials:
+The tests can run in CI using GitHub Actions. You can find the GitHub Workflow YAML here: [.github/workflows/ci.yml](.github/workflows/ci.yml)
+
+The authentication used here to make GitHub Actions connect to Azure is using federated credentials:
 [Configure App Service with Federated Credentials](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#add-federated-credentials-preview). You can also use a service principal secret: [Configure App Service with Service Principal Secret](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret)
+
+The GitHub Action will publish a test report: ![GitHub Test Report](docs/github-test-report.png)
 
 ## CI - Azure DevOps
 
