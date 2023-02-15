@@ -1,4 +1,4 @@
-namespace DNB.EffectenEiland.SynapseAnalytics.Test.SynapseTestHelper;
+namespace Synapse.Example.Test.SynapseTestHelper;
 
 using System;
 using System.Collections.Generic;

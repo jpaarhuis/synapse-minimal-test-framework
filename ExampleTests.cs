@@ -1,9 +1,8 @@
+namespace Synapse.Example.Test;
+
 using System;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-
-namespace DNB.EffectenEiland.SynapseAnalytics.Test;
-
 using SynapseTestHelper;
 
 [TestClass]

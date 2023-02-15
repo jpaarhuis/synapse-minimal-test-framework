@@ -1,4 +1,4 @@
-﻿namespace DNB.EffectenEiland.SynapseAnalytics.Test.SynapseTestHelper.Models;
+﻿namespace Synapse.Example.Test.SynapseTestHelper.Models;
 
 public record PipelineRunResult
 {
