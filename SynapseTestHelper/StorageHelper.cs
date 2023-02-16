@@ -27,6 +27,14 @@ public class StorageHelper
         await containerClient.UploadBlobAsync(Path.Combine(folder, testFile), fileStream);
     }
 
+    public async Task UploadFileAsync(string container, string folder, string fileName, BinaryData data)
+    {
+        var containerClient = blobServiceClient.GetBlobContainerClient(container);
+
+        await DeleteBlobIfExistsAsync(container, folder, fileName);
+        await containerClient.UploadBlobAsync(Path.Combine(folder, fileName), data);
+    }
+
     public async Task DeleteBlobIfExistsAsync(string container, string folder, string blobFile)
     {
         var containerClient = blobServiceClient.GetBlobContainerClient(container);

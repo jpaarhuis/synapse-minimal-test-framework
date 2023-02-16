@@ -24,14 +24,14 @@ public class PipelineHelper
         pipelineRunClient = new PipelineRunClient(new Uri(synapseDevUrl), tokenCredential);
     }
 
-    public async Task<PipelineRunResult> RunAndAwaitAsync(string pipelineName, TimeSpan timeout)
+    public async Task<PipelineRunResult> RunAndAwaitAsync(string pipelineName, TimeSpan timeout, IDictionary<string, object>? parameters = null)
     {
         if (timeout.TotalMinutes > 120 || timeout.TotalMinutes < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(timeout), "Timeout should be between 0 and 120 minutes");
         }
 
-        var response = await pipelineClient.CreatePipelineRunAsync(pipelineName);
+        var response = await pipelineClient.CreatePipelineRunAsync(pipelineName, parameters: parameters);
         string runId = response.Value.RunId;
 
         Response<PipelineRun> run;
