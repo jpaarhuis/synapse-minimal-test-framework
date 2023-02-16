@@ -1,0 +1,28 @@
+name: Run Tests
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - /test/*
+
+steps:
+  - task: UseDotNet@2
+    inputs:
+      version: '6.x'
+    
+  - task: AzureCLI@1
+    displayName: 'Run Tests'
+    inputs:
+      azureSubscription: '[ServiceConnectionHere]'
+      scriptLocation: 'inlineScript'
+      inlineScript: 'dotnet test --configuration Release --logger trx'
+    env:
+      AzureServicesAuthConnectionString: RunAs=Developer;DeveloperTool=AzureCli
+
+  - task: PublishTestResults@2
+    inputs:
+      testRunner: VSTest
+      testResultsFiles: '**/*.trx'

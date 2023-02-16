@@ -26,3 +26,8 @@ The GitHub Action will publish a test report: ![GitHub Test Report](docs/github-
 
 ## CI - Azure DevOps
 
+The tests can also run in CI with Azure DevOps. You can find the Azure DevOps YAML here: [AzDevOps/ci.yml](AzDevOps/ci.yml)
+
+Make sure you replace `[ServiceConnectionHere]` with your service connection name. The tests will run on the Service Connection Service Principal's identity.
+
+![Azure DevOps Test Report](docs/azure-devops-test-report.png)
