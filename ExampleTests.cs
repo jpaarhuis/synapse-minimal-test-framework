@@ -32,13 +32,13 @@ public class PipelineTests
         await storageHelper.DeleteBlobIfExistsAsync("mycontainer", "unzipped", "unzipped.txt");
 
         // act : run pl_unzip pipeline
-        var status = await pipelineHelper.RunAndAwaitAsync("pl_unzip", TimeSpan.FromMinutes(10));
+        var result = await pipelineHelper.RunAndAwaitAsync("pl_unzip", TimeSpan.FromMinutes(10));
 
         // assert : check that the file is unzipped and the zip file is removed
         var unzippedExists = await storageHelper.BlobExistsAsync("mycontainer", "unzipped", "unzipped.txt");
         var zipExists = await storageHelper.BlobExistsAsync("mycontainer", "zipped", "test.zip");
 
-        Assert.AreEqual("Succeeded", status.Status);
+        Assert.AreEqual("Succeeded", result.Status);
         Assert.IsTrue(unzippedExists);
         Assert.IsFalse(zipExists);
     }
@@ -59,7 +59,7 @@ public class PipelineTests
 
         // act : run pl_unzip pipeline
         var parameters = new Dictionary<string, object>() { ["triggerFile"] = "mytest.json" };
-        var status = await pipelineHelper.RunAndAwaitAsync("pl_json_append_delta_lake", TimeSpan.FromMinutes(10), parameters);
+        var result = await pipelineHelper.RunAndAwaitAsync("pl_json_append_delta_lake", TimeSpan.FromMinutes(10), parameters);
 
         // assert: check that the file is unzipped and the zip file is removed
         string sql = @$"
@@ -70,7 +70,7 @@ public class PipelineTests
         ";
         var table = sqlHelper.RetrieveQueryResults("DataExplorationDB", sql);
 
-        Assert.AreEqual("Succeeded", status.Status);
+        Assert.AreEqual("Succeeded", result.Status);
         Assert.AreEqual(2, table.Rows.Count);
     }
 }
