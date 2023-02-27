@@ -1,10 +1,6 @@
 ﻿namespace Synapse.Example.Test.SynapseTestHelper;
 
-using Azure.Identity;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Data;
-using System.Threading.Tasks;
 
 public class SqlHelper
 {

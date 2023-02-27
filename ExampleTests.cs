@@ -1,15 +1,5 @@
 namespace Synapse.Example.Test;
 
-using System;
-using System.Threading.Tasks;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SynapseTestHelper;
-using Microsoft.Data.SqlClient;
-using Azure.Identity;
-using System.Linq;
-using System.Data;
-using System.Collections.Generic;
-
 [TestClass]
 public class PipelineTests
 {

@@ -1,14 +1,7 @@
 namespace Synapse.Example.Test.SynapseTestHelper;
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Azure;
 using Azure.Analytics.Synapse.Artifacts;
 using Azure.Analytics.Synapse.Artifacts.Models;
-using Azure.Identity;
-using Models;
 
 public class PipelineHelper
 {

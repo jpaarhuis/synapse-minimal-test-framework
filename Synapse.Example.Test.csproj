@@ -21,9 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="TestFiles\test.zip">
+    <Content Include="TestFiles\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
 
 </Project>
