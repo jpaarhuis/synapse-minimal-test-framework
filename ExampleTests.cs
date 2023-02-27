@@ -57,11 +57,11 @@ public class PipelineTests
             User = "AutomatedTest"
         }));
 
-        // act : run pl_unzip pipeline
+        // act : run pl_json_append_delta_lake pipeline
         var parameters = new Dictionary<string, object>() { ["triggerFile"] = "mytest.json" };
         var result = await pipelineHelper.RunAndAwaitAsync("pl_json_append_delta_lake", TimeSpan.FromMinutes(10), parameters);
 
-        // assert: check that the file is unzipped and the zip file is removed
+        // assert: check that new lines are in external table
         string sql = @$"
             SELECT Edition, Notes FROM [default].[dbo].[sat_topics]
             WHERE ISBN IN ('9782503574318', '9782503574318')

@@ -2,6 +2,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Azure.Identity;
 using Azure.Storage.Blobs;
@@ -49,5 +50,36 @@ public class StorageHelper
         var blobClient = containerClient.GetBlobClient(Path.Combine(folder, blobFile));
 
         return await blobClient.ExistsAsync();
+    }
+
+    public async Task ReplaceFolderAsync(string container, string remoteFolder, string localFolder)
+    {
+        var containerClient = blobServiceClient.GetBlobContainerClient(container);
+
+        await DeleteFolderAsync(container, remoteFolder);
+
+        var localTestFilesFolder = Path.Combine(testFilesFolder, localFolder);
+        string[] filePaths = Directory.GetFiles(localTestFilesFolder, "*", SearchOption.AllDirectories);
+
+        foreach (var filePath in filePaths)
+        {
+            string relativePath = Path.GetRelativePath(localTestFilesFolder, filePath);
+            var blobClient = containerClient.GetBlobClient(Path.Combine(remoteFolder, relativePath));
+            await blobClient.UploadAsync(filePath, true);
+        }
+    }
+
+    public async Task DeleteFolderAsync(string container, string folder)
+    {
+        var containerClient = blobServiceClient.GetBlobContainerClient(container);
+        var blobs = containerClient.GetBlobsAsync(prefix: folder).AsPages();
+
+        await foreach (var page in blobs)
+        {
+            foreach (var blob in page.Values.Where(blob => blob.Properties.ContentLength > 0))
+            {
+                await containerClient.DeleteBlobIfExistsAsync(blob.Name);
+            }
+        }
     }
 }
