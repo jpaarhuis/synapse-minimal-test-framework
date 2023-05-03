@@ -42,10 +42,10 @@ public class PipelineHelper
         {
             await Task.Delay(TimeSpan.FromSeconds(pollingIntervalSeconds));
             run = await pipelineRunClient.GetPipelineRunAsync(runId);
-        } while (retries == 0 
-            || run.Value.Status == "Queued" 
-            || run.Value.Status == "InProgress" 
-            || run.Value.Status == "Canceling");
+        } while (retries > 0 
+            && (run.Value.Status == "Queued" 
+                || run.Value.Status == "InProgress" 
+                || run.Value.Status == "Canceling"));
 
         return new PipelineRunResult(runId, run.Value.Status);
     }
@@ -63,9 +63,9 @@ public class PipelineHelper
     public async Task<IDictionary<string, object>?> GetActivityInputAsync(string runId, string activityName)
     {
         var activities = await GetRunActivitiesAsync(runId);
-        var activity = activities.FirstOrDefault(a => a.ActivityName == "CopyEachFile");
+        var activity = activities.FirstOrDefault(a => a.ActivityName == activityName);
 
-        if (activity == null) throw new ActivityNotFound("activityName");
+        if (activity == null) throw new ActivityNotFound(activityName);
 
         return activity.Input as IDictionary<string, object>;
     }

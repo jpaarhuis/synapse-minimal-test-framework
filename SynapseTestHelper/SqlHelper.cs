@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 public class SqlHelper
 {
-    private const int SQL_TIMEOUT_ERROR_CODE = -2146232060;
     private string ondemandSqlServer;
 
     public SqlHelper(string synapseDevUrl)
@@ -57,7 +56,7 @@ public class SqlHelper
             {
                 sqlMethod();
             }
-            catch (SqlException ex) when (ex.ErrorCode == SQL_TIMEOUT_ERROR_CODE)
+            catch (SqlException ex) when (ex.Message.Contains("timeout", StringComparison.OrdinalIgnoreCase)) // Error code isn't specific enough, need to determine timeout based on text.
             {
                 timeout = true;
             }
