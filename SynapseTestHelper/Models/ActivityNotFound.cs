@@ -1,8 +1,5 @@
 ﻿namespace Synapse.Example.Test.SynapseTestHelper.Models;
 
-using System;
-using System.Runtime.Serialization;
-
 [Serializable]
 public class ActivityNotFound : Exception
 {

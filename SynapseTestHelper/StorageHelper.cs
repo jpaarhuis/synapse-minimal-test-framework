@@ -1,10 +1,5 @@
 ﻿namespace Synapse.Example.Test.SynapseTestHelper;
 
-using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Azure.Identity;
 using Azure.Storage.Blobs;
 
 public class StorageHelper
